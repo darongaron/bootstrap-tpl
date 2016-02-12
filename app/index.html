@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>Bootstrap-tpl</title>
+    <link href="styles/main.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <div class="page-header">
+      <h1>Bootstrap-tpl <small>Subtext for header</small></h1>
+    </div>
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="jh"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Bootstrap-tpl</h1>
+        <p>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+          Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </p>
+      </div>
+    </div>
+
+    <div class="container">
+      <p>
+      <button type="button" class="btn btn-default">Default</button>
+      <button type="button" class="btn btn-primary">Primary</button>
+      <button type="button" class="btn btn-success">Success</button>
+      <button type="button" class="btn btn-info">Info</button>
+      <button type="button" class="btn btn-warning">Warning</button>
+      <button type="button" class="btn btn-danger">Danger</button>
+      <button type="button" class="btn btn-link">Link</button>
+      </p>
+    </div>
+
+    <script src="scripts/main.js"></script>
+  </body>
+</html>
