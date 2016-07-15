@@ -6,10 +6,10 @@ var del          = require('del');
 var gulp         = require('gulp');
 var cache        = require('gulp-cache');
 var eslint       = require('gulp-eslint');
+var htmlmin      = require('gulp-htmlmin');
 var gulpIf       = require('gulp-if');
 var imagemin     = require('gulp-imagemin');
 var minifyCss    = require('gulp-minify-css');
-var minifyHtml   = require('gulp-minify-html');
 var sass         = require('gulp-sass');
 var sourcemaps   = require('gulp-sourcemaps');
 var uglify       = require('gulp-uglify');
@@ -26,9 +26,11 @@ var isRelease = false;
 
 gulp.task('watchify', function() {
   isWatch = true;
+  console.log('isWatch:', isWatch);
 });
 gulp.task('release', function(cb) {
   isRelease = true;
+  console.log('isRelease:', isRelease);
   cb();
 });
 
@@ -48,8 +50,10 @@ gulp.task('copy:nm', function() {
     base: 'node_modules',
     dot: true
   })
-  .pipe(gulp.dest('.tmp/modules'))
-  .pipe(gulp.dest('dist/modules'));
+  .pipe(gulpIf(isRelease,
+    gulp.dest('dist/modules'),
+    gulp.dest('.tmp/modules')
+  ));
 });
 
 gulp.task('clean', function(cb) {
@@ -77,7 +81,6 @@ gulp.task('lint', function() {
   .pipe(eslint({
     extends: 'google',
     env: {browser: true, node: true, jquery: true},
-    // globals: {$: true, document: true, window: true},
     rules: {
       'no-multi-spaces': [2, {exceptions: {
         VariableDeclarator: true,
@@ -105,7 +108,6 @@ gulp.task('scripts', function() {
   };
 
   var bundler = browserify(browserifyOpts);
-  console.log('isWatch:', isWatch);
   if (isWatch) {
     browserifyOpts.cache = {};
     browserifyOpts.packageCache = {};
@@ -146,7 +148,17 @@ gulp.task('scripts:watch', function(cb) {
 
 gulp.task('html', function() {
   return gulp.src('app/**/*.html')
-  .pipe(minifyHtml())
+  .pipe(htmlmin({
+    removeComments: true,
+    collapseWhitespace: true,
+    collapseBooleanAttributes: true,
+    removeAttributeQuotes: true,
+    removeRedundantAttributes: true,
+    removeEmptyAttributes: true,
+    removeScriptTypeAttributes: true,
+    removeStyleLinkTypeAttributes: true,
+    removeOptionalTags: true
+  }))
   .pipe(gulp.dest('dist'));
 });
 
